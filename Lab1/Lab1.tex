@@ -1,0 +1,213 @@
+\documentclass[a4paper,12pt]{article} 
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в фомулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools, gensymb} % AMS
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+%%Таблица
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{floatrow}
+\floatsetup[table]{capposition=top}
+\floatsetup[wrapfigure]{capposition=bottom}
+
+
+%% Номера формул
+\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%% Стиль страницы
+\usepackage{fancyhdr}
+
+%% Для рисунков
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage{wrapfig}
+
+%Отступы и поля 
+\textwidth=20cm
+\oddsidemargin=-2cm
+\topmargin=-2cm
+\textheight=25cm
+
+\pagestyle{fancy}
+\begin{document}
+\begin{titlepage}
+\begin{center}
+%\vspace*{1cm}
+\large{\small ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ\\ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ \\ МОСКОВСКИЙ ФИЗИКО-ТЕХНИЧЕСКИЙ ИНСТИТУТ\\ (НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ)\\ ФАКУЛЬТЕТ АЭРОКОСМИЧЕСКИХ ТЕХНОЛОГИЙ}
+\vfill
+\line(1,0){430}\\[1mm]
+\huge{Лабораторная 1}\\
+\huge\textbf{База + фундамент}\\
+\line(1,0){430}\\[1mm]
+\vfill
+\begin{flushright}
+\normalsize{Рогозин Владимир}\\
+\normalsize{\textbf{Группа Б03-106}}\\
+\end{flushright}
+\end{center}
+\end{titlepage}
+\fancyhead[L] {Лабораторная 1}
+
+\textbf{Пункты 3, 4, 5:}
+
+Сначала посмотрим как выглядит простейшая программа, которая выводит строку "Hello world" на языке ассемблера, сравним ассемблерный листинг простейшей программы на языке С с точно такой же программой на языке С++.
+\begin{figure}[H]
+    \subfloat["Hello world" на С]{
+    \begin{minipage}[t][1\width]{0.395\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{HelloWorld-C.png}
+    \end{minipage}}
+    \hfill
+    \subfloat["Hello world" на С++]{
+    \begin{minipage}[t][1\width]{0.583\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{HelloWorld-C++.png}
+    \end{minipage}}
+    \label{fig:Hello world C++ and C}
+\end{figure}
+
+Не трудно заметить, что имеются небольшие различия -- на C++ добавилась дополнительная информация, программа стала объёмнее. Однако прослеживается схожесть во многих командах, к примеру строка "Hello world" объявляется в обоих языках одинаково. Ниже представлен код программы, которая создаёт три глобальных целочисленных переменных, двум из них присваиваются значения, а третьей присваивается произведение значений первых двух. Опять же, видны различия в объявлении переменных, но те части кода, где происходит присваивание и умножение абсолютно идентичны на С и С++.  
+
+\begin{figure}[H]
+    \subfloat[Умножение двух целых чисел на С]{
+    \begin{minipage}[t][1\width]{0.5\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{umnojenieC.png}
+    \end{minipage}}
+    \hfill
+    \subfloat[Умножение двух целых чисел на С++]{
+    \begin{minipage}[t][1\width]{0.4745\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{umnojenieCpp.png}
+    \end{minipage}}
+    \label{fig:umnojenie C++ and C}
+\end{figure}
+
+\newpage
+Далее, добавим вывод на экран(чтобы проверять корректность работы программы), сложим два числа, запишем результат в третье, выведем его на экран. После этого попробуем изменить программу непосредственно через ассемблерный листинг, сравним результаты работы обеих программ. Ниже приведены скриншоты различий программ и вывода в консоль до/после.
+
+\begin{figure}[H]
+    \subfloat[Сложение 4 с 5]{
+    \begin{minipage}[t][1\width]{0.478\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{slojenieCBefore.png}
+    \end{minipage}}
+    \hfill
+    \subfloat[Сложение 44 с 5]{
+    \begin{minipage}[t][1\width]{0.481\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{slojenieCAfter.png}
+    \end{minipage}}
+    \label{fig:slojenie C++ and C}
+\end{figure}
+
+\begin{figure}[H]
+    \subfloat[Результат сложения 4 с 5]{
+    \begin{minipage}[t][1\width]{0.48\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{resultSlojeniaCBefore.png}
+    \end{minipage}}
+    \subfloat[Результат сложения 44 с 5]{
+    \begin{minipage}[t][1\width]{0.48\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{resultSlojeniaCAfter.png}
+    \end{minipage}}
+    \label{fig:resul'tat slojenia C++ and C}
+    \vspace{-8cm}
+\end{figure}
+
+Таким образом, изменив в ассемблерном листинге значение, присваиваемое одному из чисел, поменяли значение третьей переменной и результат работы программы. Исходный файл operations.c при этом не изменился.
+\newpage
+
+\textbf{Пункт 6:}
+
+Теперь выясним какие команды отвечают за операции сложения, вычитания, присваивания. 
+
+\begin{figure}[H]
+    \subfloat[Команда addl складывает числа]{
+    \begin{minipage}[t][1\width]{0.48\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{slojenie.png}
+    \end{minipage}}
+    \subfloat[Команда subl вычитает числа]{
+    \begin{minipage}[t][1\width]{0.4758\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{vychitanie.png}
+    \end{minipage}}
+    \label{fig:resul'tat slojenia C++ and C}
+\end{figure}
+Не трудно увидеть, что за сложение отвечает команда \textit{\textbf{addl}}, за вычитание -- \textit{\textbf{subl}}. Присваиваются значения с помощью команды \textit{\textbf{movl}}.
+
+\textbf{Пункт 7:}
+
+Создадим несколько глобальных переменных различного типа, посмотрим как они объявляются, проделаем некоторые операции с ними. Видно, что глобальные переменные объявляются в самом верху, рядом с названием указан размер переменной в байтах и ещё какое-то число. В данной простейшей программе присваиваются значения глобальным переменным, затем эти значения изменяются: переменной типа \textit{char} присваивается другая буква, \textit{int} складывается с \textit{long} и результат записывается во \textit{float}. 
+
+\begin{figure}\label{fig: global vars}
+    \centering
+    \includegraphics[width = 0.6\textwidth]{7chapter.png}
+    \caption*{Четыре глобальные переменные различных типов и действия с ними}
+\end{figure}
+\newpage
+
+\textbf{Пункт 8:}
+
+Из предыдущей программы видно, что при выполнении арифметических действий значения различных по типу переменных копируются в различные регистры в зависимости от размера памяти, занимаемого переменной. Изначально переменная типа \textit{int} кладётся в регистр \textit{eax}, размер которого 32 бита, что совпадает с размером \textit{int}'а, а переменная типа \textit{long} в регистр \textit{rax}, который содержит в себе 64 бита(как и размер переменной типа \textit{long}). Перед тем как сложить \textit{int} c \textit{long} переменная типа \textit{int} копируется в 64-битный регистр \textit{rdx}, затем складывается с \textit{long}'ом, потом результат сложения записывается в \textit{rax}, после этого это число записывается в знаяение переменной типа \textit{float}. Также стоит отметить, что результат арифметических операций записывается во второй регистр. Таким образом, обращение к регистру происходит через знак \%, а именно \%eax, также, если в регистре лежит адрес переменной, то к значению переменной можно обратиться сразу, добавив скобочки вот так вот (\%eax)(эту инфу нагуглил). К тому же, для хранения различных данных, в зависимости от размера, используются различные регистры.
+
+\textbf{Пункт 9:}
+
+В этом пункте посмотрим на умножение и деление беззнаковых и знаковых чисел различных размеров. За знаковое деление и умножение отвечают \textit{\textbf{imul}} и \textit{\textbf{idiv}} соответственно. Внизу представлена программа с двумя числами типа \textit{int}, в которой сначала во вторую переменную записывается результат их перемножения, а потом результат их деления: 
+\begin{figure}[H]\label{fig: imull idivl}
+    \centering
+    \includegraphics[width = 0.4\textwidth]{imullidivl.png}
+    \caption*{Умножение и деление целых знаковых чисел типа \textit{int}}
+\end{figure}
+\newpage
+
+Видим, что у каждой из команд появилась буква $l$ в конце, которая указывает на размер операндов. Обе переменных 32-х битные, поэтому используются регистры \textit{edx}, \textit{eax} и \textit{ecx}. У \textit{\textbf{imul}} два аргумента, результат записывается во второй регистр(\textit{eax} в данном случае). У команды \textit{\textbf{idiv}} всего один аргумент и, судя по действиям перед и после деления, команда \textit{\textbf{idiv}} берёт делимое из регистра \textit{eax} по умолчанию, а делитель -- из единственного аргумента, и сохраняет результат в \textit{eax}. Теперь сделаем те же арифметические операции с беззнаковыми числами:
+\begin{figure}[H]\label{fig: imull divl}
+    \centering
+    \includegraphics[width = 0.4\textwidth]{imulldivl.png}
+    \caption*{Умножение и деление целых беззнаковых чисел типа \textit{int}}
+\end{figure}
+
+Можем видеть, что вместо команды \textit{\textbf{idivl}} появилась \textit{\textbf{divl}}, которая отвечает за деление беззнаковых чисел, при этом умножаются числа по-прежнему командой \textit{\textbf{imull}}, результат умножения все так же записывается во второй аргумент(регистр), операция \textit{\textbf{divl}} по-прежнему берет делимое из регистра \textit{eax}, и туда же записывает результат деления. Делитель берётся из регистра \textit{ecx}.
+
+Теперь в качестве типов переменных возьмём \textit{long long} и \textit{unsigned long long}. Видно, что поменялись только последние буквы в командах \textit{\textbf{imulq}}, \textit{\textbf{idivq}} и \textit{\textbf{divq}}. Также, так как изменился размер переменной, то изменились и регистры, в которых хранятся результаты операций и значения самих переменных. Команду \textit{\textbf{mul}} так и не удалось вытащить, но работает она схожим с \textit{\textbf{div}} и \textit{\textbf{idiv}}\textbf{} образом(в том смысле, что принимает один аргумент, а второй сомножитель заведомо находится в определенном регистре).
+
+\begin{figure}[H]
+    \subfloat[Умножение и деление целых знаковых чисел \\ типа \textit{long long}]{
+    \begin{minipage}[t][1\width]{0.48\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{imulqidivq.png}
+    \end{minipage}}
+    \subfloat[Умножение и деление целых беззнаковых чисел \\ типа \textit{long long}]{
+    \begin{minipage}[t][1\width]{0.484\textwidth}
+        \centering
+        \includegraphics[width= \textwidth]{imulqdivq.png}
+    \end{minipage}}
+    \label{fig:resul'tat slojenia C++ and C}
+\end{figure}
+
+\end{document}
